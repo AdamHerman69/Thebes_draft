@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Thebes
 {
@@ -6,7 +7,9 @@ namespace Thebes
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            GameSettings.LoadFromFile();
+            Game game = new Game(new List<Player>());
+            game.Play();
         }
     }
 }

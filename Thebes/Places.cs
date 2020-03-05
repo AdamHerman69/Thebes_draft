@@ -7,7 +7,7 @@ namespace Thebes
     public abstract class Place
     {
         public string Name { get; private set; }
-
+        public int Index { get; set; }
     }
 
     public class DigSite : Place
@@ -15,7 +15,7 @@ namespace Thebes
         private List<Token> tokens { get; set; }
         private static Random random = new Random();
 
-        public List<Token> Dig(int tokenAmount)
+        public List<Token> DrawTokens(int tokenAmount)
         {
             List<Token> tokensDrawn = new List<Token>();
             for (int i = 0; i < tokenAmount; i++)
@@ -28,9 +28,9 @@ namespace Thebes
         }
     }
 
-    public class CardChanePlace : Place
+    public class CardChangePlace : Place
     {
-
+        
     }
 
     public class University : Place

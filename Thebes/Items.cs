@@ -91,8 +91,7 @@ namespace Thebes
 
     public class ExhibitionCard : Card
     {
-        public int Points { get; set; }
-        public int MyProperty { get; set; }
+        private int Points { get; set; }
         public Dictionary<DigSite, int> ArtifactsRequired { get; set; }
 
         public override void UpdateStats(Player player)
@@ -100,6 +99,24 @@ namespace Thebes
             player.Points += Points;
         }
 
+        public bool IsSmallExhibition()
+        {
+            return Points < 5;
+        }
+
+        public bool CheckRequiredTokens(Dictionary<DigSite, List<Token>> tokensObtained)
+        {
+
+            foreach (KeyValuePair<DigSite, int> requirement in ArtifactsRequired)
+            {
+                if (requirement.Value > tokensObtained[requirement.Key].Count)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 
     public abstract class Token : Item
@@ -131,6 +148,7 @@ namespace Thebes
     public class ArtifactToken : Token
     {
         public int Points { get; set; }
+        public int Name { get; set; }
 
         public override void UpdateStats(Player player)
         {
