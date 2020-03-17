@@ -8,13 +8,13 @@ namespace Thebes
     {
         public static List<Place> Places { get; set; }
         public static Place StartingPlace { get; set; }
-        private static int[][] Distances { get; set; }
+        private static int[,] Distances { get; set; }
         private static Dictionary<int, Dictionary<int, int>> TimeWheel { get; set; }
         public static List<Card> Cards { get; set; }
 
         public static int GetDistance(Place from, Place to)
         {
-            return Distances[from.Index][to.Index];
+            return Distances[from.Index, to.Index];
         }
 
         public static int DugTokenCount(int knowledge, int weeks)
@@ -140,164 +140,166 @@ namespace Thebes
             StartingPlace = warsaw;
 
             // DISTANCES
+            Distances = new int[12, 12];
 
-            Distances[0][0] = 0;
-            Distances[0][1] = 1;
-            Distances[0][2] = 1;
-            Distances[0][3] = 2;
-            Distances[0][4] = 3;
-            Distances[0][5] = 2;
-            Distances[0][6] = 2;
-            Distances[0][7] = 3;
-            Distances[0][8] = 4;
-            Distances[0][9] = 4;
-            Distances[0][10] = 3;
-            Distances[0][11] = 4;
+            Distances[0, 0] = 0;
+            Distances[0, 1] = 1;
+            Distances[0, 2] = 1;
+            Distances[0, 3] = 2;
+            Distances[0, 4] = 3;
+            Distances[0, 5] = 2;
+            Distances[0, 6] = 2;
+            Distances[0, 7] = 3;
+            Distances[0, 8] = 4;
+            Distances[0, 9] = 4;
+            Distances[0, 10] = 3;
+            Distances[0, 11] = 4;
 
-            Distances[1][0] = 1;
-            Distances[1][1] = 0;
-            Distances[1][2] = 1;
-            Distances[1][3] = 1;
-            Distances[1][4] = 3;
-            Distances[1][5] = 1;
-            Distances[1][6] = 2;
-            Distances[1][7] = 2;
-            Distances[1][8] = 3;
-            Distances[1][9] = 3;
-            Distances[1][10] = 2;
-            Distances[1][11] = 3;
+            Distances[1, 0] = 1;
+            Distances[1, 1] = 0;
+            Distances[1, 2] = 1;
+            Distances[1, 3] = 1;
+            Distances[1, 4] = 3;
+            Distances[1, 5] = 1;
+            Distances[1, 6] = 2;
+            Distances[1, 7] = 2;
+            Distances[1, 8] = 3;
+            Distances[1, 9] = 3;
+            Distances[1, 10] = 2;
+            Distances[1, 11] = 3;
 
-            Distances[2][0] = 1;
-            Distances[2][1] = 1;
-            Distances[2][2] = 0;
-            Distances[2][3] = 2;
-            Distances[2][4] = 2;
-            Distances[2][5] = 2;
-            Distances[2][6] = 1;
-            Distances[2][7] = 2;
-            Distances[2][8] = 3;
-            Distances[2][9] = 4;
-            Distances[2][10] = 3;
-            Distances[2][11] = 3;
+            Distances[2, 0] = 1;
+            Distances[2, 1] = 1;
+            Distances[2, 2] = 0;
+            Distances[2, 3] = 2;
+            Distances[2, 4] = 2;
+            Distances[2, 5] = 2;
+            Distances[2, 6] = 1;
+            Distances[2, 7] = 2;
+            Distances[2, 8] = 3;
+            Distances[2, 9] = 4;
+            Distances[2, 10] = 3;
+            Distances[2, 11] = 3;
 
-            Distances[3][0] = 2;
-            Distances[3][1] = 1;
-            Distances[3][2] = 2;
-            Distances[3][3] = 0;
-            Distances[3][4] = 2;
-            Distances[3][5] = 1;
-            Distances[3][6] = 1;
-            Distances[3][7] = 2;
-            Distances[3][8] = 3;
-            Distances[3][9] = 3;
-            Distances[3][10] = 2;
-            Distances[3][11] = 3;
+            Distances[3, 0] = 2;
+            Distances[3, 1] = 1;
+            Distances[3, 2] = 2;
+            Distances[3, 3] = 0;
+            Distances[3, 4] = 2;
+            Distances[3, 5] = 1;
+            Distances[3, 6] = 1;
+            Distances[3, 7] = 2;
+            Distances[3, 8] = 3;
+            Distances[3, 9] = 3;
+            Distances[3, 10] = 2;
+            Distances[3, 11] = 3;
 
-            Distances[4][0] = 3;
-            Distances[4][1] = 3;
-            Distances[4][2] = 2;
-            Distances[4][3] = 2;
-            Distances[4][4] = 0;
-            Distances[4][5] = 3;
-            Distances[4][6] = 1;
-            Distances[4][7] = 2;
-            Distances[4][8] = 3;
-            Distances[4][9] = 4;
-            Distances[4][10] = 3;
-            Distances[4][11] = 4;
+            Distances[4, 0] = 3;
+            Distances[4, 1] = 3;
+            Distances[4, 2] = 2;
+            Distances[4, 3] = 2;
+            Distances[4, 4] = 0;
+            Distances[4, 5] = 3;
+            Distances[4, 6] = 1;
+            Distances[4, 7] = 2;
+            Distances[4, 8] = 3;
+            Distances[4, 9] = 4;
+            Distances[4, 10] = 3;
+            Distances[4, 11] = 4;
 
-            Distances[5][0] = 1;
-            Distances[5][1] = 1;
-            Distances[5][2] = 2;
-            Distances[5][3] = 1;
-            Distances[5][4] = 3;
-            Distances[5][5] = 0;
-            Distances[5][6] = 2;
-            Distances[5][7] = 1;
-            Distances[5][8] = 2;
-            Distances[5][9] = 2;
-            Distances[5][10] = 1;
-            Distances[5][11] = 2;
+            Distances[5, 0] = 1;
+            Distances[5, 1] = 1;
+            Distances[5, 2] = 2;
+            Distances[5, 3] = 1;
+            Distances[5, 4] = 3;
+            Distances[5, 5] = 0;
+            Distances[5, 6] = 2;
+            Distances[5, 7] = 1;
+            Distances[5, 8] = 2;
+            Distances[5, 9] = 2;
+            Distances[5, 10] = 1;
+            Distances[5, 11] = 2;
 
-            Distances[6][0] = 2;
-            Distances[6][1] = 2;
-            Distances[6][2] = 1;
-            Distances[6][3] = 1;
-            Distances[6][4] = 1;
-            Distances[6][5] = 2;
-            Distances[6][6] = 0;
-            Distances[6][7] = 1;
-            Distances[6][8] = 2;
-            Distances[6][9] = 3;
-            Distances[6][10] = 2;
-            Distances[6][11] = 3;
+            Distances[6, 0] = 2;
+            Distances[6, 1] = 2;
+            Distances[6, 2] = 1;
+            Distances[6, 3] = 1;
+            Distances[6, 4] = 1;
+            Distances[6, 5] = 2;
+            Distances[6, 6] = 0;
+            Distances[6, 7] = 1;
+            Distances[6, 8] = 2;
+            Distances[6, 9] = 3;
+            Distances[6, 10] = 2;
+            Distances[6, 11] = 3;
 
-            Distances[7][0] = 3;
-            Distances[7][1] = 2;
-            Distances[7][2] = 2;
-            Distances[7][3] = 2;
-            Distances[7][4] = 2;
-            Distances[7][5] = 1;
-            Distances[7][6] = 1;
-            Distances[7][7] = 0;
-            Distances[7][8] = 1;
-            Distances[7][9] = 2;
-            Distances[7][10] = 1;
-            Distances[7][11] = 2;
+            Distances[7, 0] = 3;
+            Distances[7, 1] = 2;
+            Distances[7, 2] = 2;
+            Distances[7, 3] = 2;
+            Distances[7, 4] = 2;
+            Distances[7, 5] = 1;
+            Distances[7, 6] = 1;
+            Distances[7, 7] = 0;
+            Distances[7, 8] = 1;
+            Distances[7, 9] = 2;
+            Distances[7, 10] = 1;
+            Distances[7, 11] = 2;
 
-            Distances[8][0] = 4;
-            Distances[8][1] = 3;
-            Distances[8][2] = 3;
-            Distances[8][3] = 3;
-            Distances[8][4] = 3;
-            Distances[8][5] = 2;
-            Distances[8][6] = 2;
-            Distances[8][7] = 1;
-            Distances[8][8] = 0;
-            Distances[8][9] = 2;
-            Distances[8][10] = 2;
-            Distances[8][11] = 1;
+            Distances[8, 0] = 4;
+            Distances[8, 1] = 3;
+            Distances[8, 2] = 3;
+            Distances[8, 3] = 3;
+            Distances[8, 4] = 3;
+            Distances[8, 5] = 2;
+            Distances[8, 6] = 2;
+            Distances[8, 7] = 1;
+            Distances[8, 8] = 0;
+            Distances[8, 9] = 2;
+            Distances[8, 10] = 2;
+            Distances[8, 11] = 1;
 
-            Distances[9][0] = 4;
-            Distances[9][1] = 3;
-            Distances[9][2] = 4;
-            Distances[9][3] = 3;
-            Distances[9][4] = 4;
-            Distances[9][5] = 2;
-            Distances[9][6] = 3;
-            Distances[9][7] = 2;
-            Distances[9][8] = 2;
-            Distances[9][9] = 0;
-            Distances[9][10] = 1;
-            Distances[9][11] = 1;
+            Distances[9, 0] = 4;
+            Distances[9, 1] = 3;
+            Distances[9, 2] = 4;
+            Distances[9, 3] = 3;
+            Distances[9, 4] = 4;
+            Distances[9, 5] = 2;
+            Distances[9, 6] = 3;
+            Distances[9, 7] = 2;
+            Distances[9, 8] = 2;
+            Distances[9, 9] = 0;
+            Distances[9, 10] = 1;
+            Distances[9, 11] = 1;
 
-            Distances[10][0] = 3;
-            Distances[10][1] = 2;
-            Distances[10][2] = 3;
-            Distances[10][3] = 2;
-            Distances[10][4] = 3;
-            Distances[10][5] = 1;
-            Distances[10][6] = 2;
-            Distances[10][7] = 1;
-            Distances[10][8] = 2;
-            Distances[10][9] = 1;
-            Distances[10][10] = 0;
-            Distances[10][11] = 1;
+            Distances[10, 0] = 3;
+            Distances[10, 1] = 2;
+            Distances[10, 2] = 3;
+            Distances[10, 3] = 2;
+            Distances[10, 4] = 3;
+            Distances[10, 5] = 1;
+            Distances[10, 6] = 2;
+            Distances[10, 7] = 1;
+            Distances[10, 8] = 2;
+            Distances[10, 9] = 1;
+            Distances[10, 10] = 0;
+            Distances[10, 11] = 1;
 
-            Distances[11][0] = 4;
-            Distances[11][1] = 3;
-            Distances[11][2] = 3;
-            Distances[11][3] = 3;
-            Distances[11][4] = 4;
-            Distances[11][5] = 2;
-            Distances[11][6] = 3;
-            Distances[11][7] = 2;
-            Distances[11][8] = 2;
-            Distances[11][9] = 1;
-            Distances[11][10] = 1;
-            Distances[11][11] = 0;
+            Distances[11, 0] = 4;
+            Distances[11, 1] = 3;
+            Distances[11, 2] = 3;
+            Distances[11, 3] = 3;
+            Distances[11, 4] = 4;
+            Distances[11, 5] = 2;
+            Distances[11, 6] = 3;
+            Distances[11, 7] = 2;
+            Distances[11, 8] = 2;
+            Distances[11, 9] = 1;
+            Distances[11, 10] = 1;
+            Distances[11, 11] = 0;
 
             // TIMEWHEEL
+            TimeWheel = new Dictionary<int, Dictionary<int, int>>();
 
             TimeWheel.Add(1, new Dictionary<int, int>
             {
@@ -496,6 +498,8 @@ namespace Thebes
             // CARDS
             //
             //
+
+            Cards = new List<Card>();
 
             // EXHIBITIONS
             // small

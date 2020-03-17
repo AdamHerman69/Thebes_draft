@@ -23,7 +23,7 @@ namespace Thebes
 
         public DigSite(string name, int index) : base(name, index)
         {
-            // init tokens
+           // init tokens
         }
 
         public List<Token> DrawTokens(int tokenAmount)
@@ -31,8 +31,8 @@ namespace Thebes
             List<Token> tokensDrawn = new List<Token>();
             for (int i = 0; i < tokenAmount; i++)
             {
-                Token tokenDrawn = tokens[random.Next(0, tokens.Count)];
-                tokens.Remove(tokenDrawn);
+                Token tokenDrawn = Tokens[random.Next(0, Tokens.Count)];
+                Tokens.Remove(tokenDrawn);
                 tokensDrawn.Add(tokenDrawn);
             }
             return tokensDrawn;

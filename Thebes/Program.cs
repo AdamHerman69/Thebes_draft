@@ -11,8 +11,8 @@ namespace Thebes
             GameSettings.Initialize();
             Game game = new Game(2);
 
-            Player adam = new Player("Adam", GameSettings.Places.OfType<DigSite>().ToList(), GameSettings.StartingPlace, notEnoughTimeDialog, game.AvailableCards.ChangeDisplayedCards, game.AvailableCards.GiveCard, game.ActiveExhibitions.GiveExhibition);
-            Player vitek = new Player("Adam", GameSettings.Places.OfType<DigSite>().ToList(), GameSettings.StartingPlace, notEnoughTimeDialog, game.AvailableCards.ChangeDisplayedCards, game.AvailableCards.GiveCard, game.ActiveExhibitions.GiveExhibition);
+            Player adam = new Player("Adam", GameSettings.Places.OfType<DigSite>().ToList(), GameSettings.StartingPlace, notEnoughTimeDialog, game.AvailableCards.ChangeDisplayedCards, game.AvailableCards.GiveCard, game.ActiveExhibitions.GiveExhibition, game.PlayersOnWeek);
+            Player vitek = new Player("Adam", GameSettings.Places.OfType<DigSite>().ToList(), GameSettings.StartingPlace, notEnoughTimeDialog, game.AvailableCards.ChangeDisplayedCards, game.AvailableCards.GiveCard, game.ActiveExhibitions.GiveExhibition, game.PlayersOnWeek);
 
             game.Players = new List<Player>() { adam, vitek };
 

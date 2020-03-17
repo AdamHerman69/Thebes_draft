@@ -9,20 +9,19 @@ namespace Thebes
 
     public class Time : IComparable<Time>, IEquatable<Time>
     {
-        public delegate int PlayersOnWeek(Time time);
-        PlayersOnWeek playersOnWeek;
+        Func<Time, int> playersOnWeek;
 
         public delegate void OnNewYear();
         OnNewYear onNewYear;
 
         public static int weeksInAYear = 52;
         public static int firstYear;
-        public static int lastYear;
+        public static int finalYear;
         public static int startingWeek;
 
         private static int initialOrderCounter;
 
-        public void Configure(int playerCount)
+        public static void Configure(int playerCount)
         {
             // supporting only 2-4 players atm
             if (playerCount < 2 || playerCount > 4)
@@ -31,7 +30,7 @@ namespace Thebes
             }
 
             initialOrderCounter = playerCount - 1;
-            lastYear = 1903;
+            finalYear = 1903;
 
             if (playerCount == 2)
             {
@@ -54,7 +53,7 @@ namespace Thebes
         public int CurrentYear { get; set; }
         public int SameWeekOrder { get; set; }
 
-        public Time(PlayersOnWeek playersOnWeek, OnNewYear onNewYear)
+        public Time(Func<Time, int> playersOnWeek, OnNewYear onNewYear)
         {
             if (startingWeek == 0) // hasn't been configured
             {
@@ -70,7 +69,7 @@ namespace Thebes
 
         public int RemainingWeeks()
         {
-            return weeksInAYear - CurrentWeek + ((lastYear - CurrentYear) * weeksInAYear) + 1;
+            return weeksInAYear - CurrentWeek + ((finalYear - CurrentYear) * weeksInAYear) + 1;
         }
 
         public bool CanSpendWeeks(int weeks)

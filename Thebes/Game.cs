@@ -19,6 +19,9 @@ namespace Thebes
             this.Deck = new Deck(GameSettings.Cards, playerCount);
 
             AvailableCards = new CardDisplay(DrawCard, Deck.Discard);
+            ActiveExhibitions = new AvailableExhibitions(Deck.Discard);
+
+            Time.Configure(playerCount);
         }
 
         public int PlayersOnWeek(Time time)
@@ -69,6 +72,8 @@ namespace Thebes
                 Players.Sort();
                 Players[0].TakeAction();
             }
+
+            Console.WriteLine("---- GAME ENDED ----");
         }
 
 

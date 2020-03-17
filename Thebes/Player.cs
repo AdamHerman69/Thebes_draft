@@ -31,7 +31,7 @@ namespace Thebes
         
         public Place CurrentPlace { get; set; }
 
-        public Player(string name, List<DigSite> digSites, Place startingPlace, Action notEnoughTimeDialog, Action changeDisplayCards, Action<Card> takeCard, Action<ExhibitionCard> executeExhibition)
+        public Player(string name, List<DigSite> digSites, Place startingPlace, Action notEnoughTimeDialog, Action changeDisplayCards, Action<Card> takeCard, Action<ExhibitionCard> executeExhibition, Func<Time, int> playersOnWeek)
         {
             this.Name = name;
             this.CurrentPlace = startingPlace;
@@ -44,24 +44,28 @@ namespace Thebes
             this.Time = new Time( playersOnWeek , ResetPermissions);
 
             // add all valid permissions
+            Permissions = new Dictionary<DigSite, bool>();
             foreach (DigSite digSite in digSites)
             {
                 Permissions.Add(digSite, true);
             }
 
             // add specialized knowledge values (each player starts with 0)
+            SpecializedKnowledge = new Dictionary<DigSite, int>();
             foreach (DigSite digSite in digSites)
             {
                 SpecializedKnowledge.Add(digSite, 0);
             }
 
             // add single use knowledge values (each player starts with 0)
+            SingleUseKnowledge = new Dictionary<DigSite, int>();
             foreach (DigSite digSite in digSites)
             {
                 SingleUseKnowledge.Add(digSite, 0);
             }
 
             // create token bags for each dig site
+            Tokens = new Dictionary<DigSite, List<Token>>();
             foreach (DigSite digSite in digSites)
             {
                 Tokens.Add(digSite, new List<Token>());
@@ -102,6 +106,13 @@ namespace Thebes
             return knowledge;
         }
         
+        /// <summary>
+        /// Player will use zeppelin for his next move
+        /// </summary>
+        public void UseZeppelin()
+        {
+            useZappelin = true;
+        }
         
         /// <summary>
         /// Moves a player to the desired place by spending weeks.
@@ -228,7 +239,7 @@ namespace Thebes
         }
         public void TakeAction()
         {
-
+            EndYear();
         }
     }
 }
