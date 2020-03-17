@@ -125,6 +125,16 @@ namespace Thebes
         }
     }
 
+    public class CongressCard : Card
+    {
+        public CongressCard(string id, Place place, int weeks) : base(id, place, weeks) { }
+
+        public override void UpdateStats(Player player)
+        {
+            player.Congresses++;
+        }
+    }
+
     public class ExhibitionCard : Card
     {
         private int Points { get; set; }

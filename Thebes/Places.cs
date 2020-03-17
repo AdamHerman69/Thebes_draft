@@ -18,12 +18,12 @@ namespace Thebes
 
     public class DigSite : Place
     {
-        private List<Token> Tokens { get; set; }
+        public List<Token> Tokens { get; set; }
         private static Random random = new Random();
 
-        public DigSite(string name, int index, List<Token> tokens) : base(name, index)
+        public DigSite(string name, int index) : base(name, index)
         {
-            Tokens = tokens;
+            // init tokens
         }
 
         public List<Token> DrawTokens(int tokenAmount)
