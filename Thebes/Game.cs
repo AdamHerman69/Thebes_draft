@@ -12,13 +12,13 @@ namespace Thebes
         public CardDisplay AvailableCards { get; set; }
         public AvailableExhibitions ActiveExhibitions { get; set; }
                 
-        public Game(List<Player> players)
+        public Game(int playerCount)
         {
             this.random = new Random();
-            this.Players = players;
-            this.Deck = new Deck(GameSettings.Cards, players.Count);
 
-            AvailableCards = new CardDisplay(DrawCard);
+            this.Deck = new Deck(GameSettings.Cards, playerCount);
+
+            AvailableCards = new CardDisplay(DrawCard, Deck.Discard);
         }
 
         public int PlayersOnWeek(Time time)

@@ -8,6 +8,11 @@ namespace Thebes
     {
         public string Id { get; set; }
 
+        public Item(string id)
+        {
+            this.Id = id;
+        }
+
         public abstract void UpdateStats(Player player);
     }
 
@@ -15,12 +20,24 @@ namespace Thebes
     {
         public Place Place { get; set; }
         public int Weeks { get; set; }
+
+        public Card(string id, Place place, int weeks) : base(id)
+        {
+            this.Place = place;
+            this.Weeks = weeks;
+        }
     }
 
     public class SpecializedKnowledgeCard : Card
     {
         public int KnowledgeAmount { get; set; }
         public DigSite digSite { get; set; }
+
+        public SpecializedKnowledgeCard(string id, Place place, int weeks, int knowledgeAmount, DigSite digSite) : base(id, place, weeks)
+        {
+            this.KnowledgeAmount = knowledgeAmount;
+            this.digSite = digSite;
+        }
 
         public override void UpdateStats(Player player)
         {
@@ -31,6 +48,11 @@ namespace Thebes
     public class GeneralKnowledgeCard : Card
     {
         public int KnowledgeAmount { get; set; }
+
+        public GeneralKnowledgeCard(string id, Place place, int weeks, int knowledgeAmount) : base(id, place, weeks)
+        {
+            this.KnowledgeAmount = knowledgeAmount;
+        }
 
         public override void UpdateStats(Player player)
         {
@@ -43,6 +65,12 @@ namespace Thebes
         public int KnowledgeAmount { get; set; }
         public DigSite digSite { get; set; }
 
+        public RumorsCard(string id, Place place, int weeks, int knowledgeAmount, DigSite digSite) : base(id, place, weeks)
+        {
+            this.KnowledgeAmount = knowledgeAmount;
+            this.digSite = digSite;
+        }
+
         public override void UpdateStats(Player player)
         {
             player.SingleUseKnowledge[digSite] += KnowledgeAmount;
@@ -51,6 +79,7 @@ namespace Thebes
 
     public class ZeppelinCard : Card
     {
+        public ZeppelinCard(string id, Place place, int weeks) : base(id, place, weeks) { }
         public override void UpdateStats(Player player)
         {
             player.Zeppelins++;
@@ -59,6 +88,8 @@ namespace Thebes
 
     public class CarCard : Card
     {
+        public CarCard(string id, Place place, int weeks) : base(id, place, weeks) { }
+
         public override void UpdateStats(Player player)
         {
             player.Cars++;
@@ -67,6 +98,7 @@ namespace Thebes
 
     public class AssistentCard : Card
     {
+        public AssistentCard(string id, Place place, int weeks) : base(id, place, weeks) { }
         public override void UpdateStats(Player player)
         {
             player.Assistents++;
@@ -75,6 +107,8 @@ namespace Thebes
 
     public class ShovelCard : Card
     {
+        public ShovelCard(string id, Place place, int weeks) : base(id, place, weeks) { }
+
         public override void UpdateStats(Player player)
         {
             player.Shovels++;
@@ -83,6 +117,8 @@ namespace Thebes
 
     public class SpecialPermissionCard : Card
     {
+        public SpecialPermissionCard(string id, Place place, int weeks) : base(id, place, weeks) { }
+
         public override void UpdateStats(Player player)
         {
             player.SpecialPermissions++;
@@ -93,6 +129,12 @@ namespace Thebes
     {
         private int Points { get; set; }
         public Dictionary<DigSite, int> ArtifactsRequired { get; set; }
+
+        public ExhibitionCard(string id, Place place, int weeks, int points, Dictionary<DigSite, int> artifactsRequired) : base(id, place, weeks)
+        {
+            this.Points = points;
+            this.ArtifactsRequired = artifactsRequired;
+        }
 
         public override void UpdateStats(Player player)
         {
@@ -122,12 +164,23 @@ namespace Thebes
     public abstract class Token : Item
     {
         public DigSite digSite { get; set; }
+
+        public Token(string id, DigSite digSite) : base(id)
+        {
+            this.digSite = digSite;
+        }
     }
 
     public class SpecializedKnowledgeToken : Token
     {
         public int KnowledgeAmount { get; set; }
         public DigSite knowledgeDigSite { get; set; }
+
+        public SpecializedKnowledgeToken(string id, DigSite digSite, int knowledgeAmount, DigSite knowledgeDigSite) : base(id, digSite)
+        {
+            this.KnowledgeAmount = knowledgeAmount;
+            this.knowledgeDigSite = knowledgeDigSite;
+        }
 
         public override void UpdateStats(Player player)
         {
@@ -139,6 +192,11 @@ namespace Thebes
     {
         public int KnowledgeAmount { get; set; }
 
+        public GeneralKnowledgeToken(string id, DigSite digSite, int knowledgeAmount) : base(id, digSite)
+        {
+            this.KnowledgeAmount = knowledgeAmount;
+        }
+
         public override void UpdateStats(Player player)
         {
             player.GeneralKnowledge += KnowledgeAmount;
@@ -148,7 +206,13 @@ namespace Thebes
     public class ArtifactToken : Token
     {
         public int Points { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
+
+        public ArtifactToken(string id, DigSite digSite, int points, string name) : base(id, digSite)
+        {
+            this.Points = points;
+            this.Name = name;
+        }
 
         public override void UpdateStats(Player player)
         {
@@ -157,7 +221,8 @@ namespace Thebes
     }
 
     public class DirtToken : Token
-    {
+    {    
+        public DirtToken(string id, DigSite digSite) : base(id, digSite) { }
         public override void UpdateStats(Player player)
         {
             // player's stats don't change

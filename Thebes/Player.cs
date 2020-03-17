@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Thebes
@@ -7,8 +8,10 @@ namespace Thebes
     public class Player : IComparable<Player>
     {
         Action notEnoughTimeDialog;
+        Action changeDisplayCards;
+        Action<Card> takeCard;
+        Action<ExhibitionCard> executeExhibition;
         public string Name { get; private set; }
-        public Game Game { get; set; }
         public Time Time { get; set; }
         public Dictionary<DigSite, bool> Permissions { get; set; }
         public Dictionary<DigSite, int> SpecializedKnowledge { get; set; }
@@ -28,11 +31,17 @@ namespace Thebes
         
         public Place CurrentPlace { get; set; }
 
-        public Player(string name, List<DigSite> digSites, Place startingPlace, Action notEnoughTimeDialog)
+        public Player(string name, List<DigSite> digSites, Place startingPlace, Action notEnoughTimeDialog, Action changeDisplayCards, Action<Card> takeCard, Action<ExhibitionCard> executeExhibition)
         {
             this.Name = name;
             this.CurrentPlace = startingPlace;
+
             this.notEnoughTimeDialog = notEnoughTimeDialog;
+            this.changeDisplayCards = changeDisplayCards;
+            this.takeCard = takeCard;
+            this.executeExhibition = executeExhibition;
+
+            this.Time = new Time( playersOnWeek , ResetPermissions);
 
             // add all valid permissions
             foreach (DigSite digSite in digSites)
@@ -124,13 +133,14 @@ namespace Thebes
             Time.SpendWeeks(card.Weeks);
             if (card is ExhibitionCard)
             {
-                Cards.Add(Game.ActiveExhibitions.GiveExhibition((ExhibitionCard)card));
+                executeExhibition((ExhibitionCard)card);
             }
             else
             {
-                Cards.Add(Game.AvailableCards.GiveCard(card));
+                takeCard(card);
             }
-            
+
+            Cards.Add(card);
             card.UpdateStats(this);
         }
 
@@ -203,9 +213,19 @@ namespace Thebes
 
             MoveTo(cardChangePlace);
             Time.SpendWeeks(CardDisplay.timeToChangeCards);
-            Game.AvailableCards.ChangeDisplayedCards(Game.Deck);
+            changeDisplayCards();
         }
 
+        /// <summary>
+        /// Resets the players permissions (Call on new year).
+        /// </summary>
+        public void ResetPermissions()
+        {
+            foreach (var digsite in Permissions.Keys.ToList())
+            {
+                Permissions[digsite] = true;
+            }
+        }
         public void TakeAction()
         {
 

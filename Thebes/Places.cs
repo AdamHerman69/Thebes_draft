@@ -8,12 +8,23 @@ namespace Thebes
     {
         public string Name { get; private set; }
         public int Index { get; set; }
+
+        public Place(string name, int index)
+        {
+            Name = name;
+            Index = index;
+        }
     }
 
     public class DigSite : Place
     {
-        private List<Token> tokens { get; set; }
+        private List<Token> Tokens { get; set; }
         private static Random random = new Random();
+
+        public DigSite(string name, int index, List<Token> tokens) : base(name, index)
+        {
+            Tokens = tokens;
+        }
 
         public List<Token> DrawTokens(int tokenAmount)
         {
@@ -30,11 +41,11 @@ namespace Thebes
 
     public class CardChangePlace : Place
     {
-        
+        public CardChangePlace(string name, int index) : base(name, index) { }
     }
 
     public class University : Place
     {
-
+        public University(string name, int index) : base(name, index) { }
     }
 }

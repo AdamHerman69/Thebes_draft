@@ -6,15 +6,16 @@ namespace Thebes
 {
     public class CardDisplay
     {
-        public delegate Card DrawCard();
         private Card[] AvailableCards { get; set; }
-        DrawCard drawCardMethod;
+        Func<Card> drawCardMethod;
+        Action<Card> DiscardCard;
         public static int timeToChangeCards = 1;
 
-        public CardDisplay(DrawCard drawCard)
+        public CardDisplay(Func<Card> drawCard, Action<Card> discardCard)
         {
             AvailableCards = new Card[4];
             drawCardMethod = drawCard;
+            DiscardCard = discardCard;
 
             for (int i = 0; i < AvailableCards.Length; i++)
             {
@@ -22,11 +23,11 @@ namespace Thebes
             }
         }
 
-        public void ChangeDisplayedCards(Deck deck)
+        public void ChangeDisplayedCards()
         {
             for (int i = 0; i < AvailableCards.Length; i++)
             {
-                deck.Discard(AvailableCards[i]);
+                DiscardCard(AvailableCards[i]);
             }
 
             for (int i = 0; i < AvailableCards.Length; i++)
@@ -35,7 +36,7 @@ namespace Thebes
             }
         }
 
-        public Card GiveCard(Card card)
+        public void GiveCard(Card card)
         {
             int cardIndex = Array.IndexOf(this.AvailableCards, card);
             if (cardIndex < 0)
@@ -44,8 +45,6 @@ namespace Thebes
             }
 
             this.AvailableCards[cardIndex] = drawCardMethod();
-
-            return card;
         }
     }
 
@@ -74,7 +73,7 @@ namespace Thebes
             Exhibitions[0] = exhibition;
         }
 
-        public ExhibitionCard GiveExhibition(ExhibitionCard exhibition)
+        public void GiveExhibition(ExhibitionCard exhibition)
         {
             int cardIndex = Array.IndexOf(Exhibitions, exhibition);
             if (cardIndex < 0)
@@ -83,8 +82,6 @@ namespace Thebes
             }
 
             Exhibitions[cardIndex] = null;
-
-            return exhibition;
         }
 
     }
